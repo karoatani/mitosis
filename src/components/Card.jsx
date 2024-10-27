@@ -10,7 +10,7 @@ const Card = ({name, link}) => {
         alt=""
         className="rounded-full w-[100px] h-[100px] "
       />
-      <p className="text-sm">Made by {name}</p>
+      <p className="text-sm">{name}</p>
       <div className="flex items-center justify-center gap-2">
       <a href={link} className="text-[#2C2C2C]">Give me a </a>
       <FaHeart style={{"color": "black"}} />
