@@ -6,7 +6,7 @@ const Search = () => {
       
       <input
         type="text"
-        className="h-[61px] md:w-[400px] text-center w-full"
+        className="h-[61px] md:w-[400px] text-center w-full transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
         placeholder="Search Token Name"
       />
       {/* <div className=""> */}
