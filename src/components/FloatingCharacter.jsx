@@ -11,7 +11,7 @@ function FloatingCharacter() {
 
   return (
     <animated.div style={floatAnimation} className="flex justify-center ">
-      <img src="/witch.gif" alt="Floating Character" className="w-[150px] h-[150px]" />
+      <img src="/witch.gif" alt="Floating Character" className="w-[100px] h-[100px]" />
     </animated.div>
   );
 }

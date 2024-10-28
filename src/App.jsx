@@ -8,7 +8,7 @@ export default function App() {
   return (
     <div className="bg-[#573BFF] w-full  relative flex flex-col h-min gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
       <div>
-        <h1 className="text-lg md:text-2xl uppercase font-bold ">
+        <h1 className="text-2xl md:text-2xl uppercase font-bold ">
           Morsedn404
         </h1>
       </div>
