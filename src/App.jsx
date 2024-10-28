@@ -35,7 +35,7 @@ export default function App() {
         <h2 className=" text-2xl text-bold text-center">
           Contributors
         </h2>
-        <Card name="@MurinXDA" link="https://waitlist.mitosis.org/profile/G29Q42" image="/atanikun.png" xProfile="https://x.com/MurinXDA"/>
+        <Card name="@MurinXDA" link="https://waitlist.mitosis.org/profile/G29Q42" image="/murin.png" xProfile="https://x.com/MurinXDA" refCode="https://waitlist.mitosis.org/my-page?code=G29Q42"/>
         <Card name="@atanikun" link="https://waitlist.mitosis.org/profile/6QQ31I " image="/atanikun.png"/>
       </div>
 
