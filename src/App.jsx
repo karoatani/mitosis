@@ -36,13 +36,13 @@ export default function App() {
           Contributors
         </h2>
         <Card name="@MurinXDA" link="https://waitlist.mitosis.org/profile/G29Q42" image="/murin.png" xProfile="https://x.com/MurinXDA" refCode="https://waitlist.mitosis.org/my-page?code=G29Q42"/>
-        <Card name="@atanikun" link="https://waitlist.mitosis.org/profile/6QQ31I " image="/atanikun.png"/>
+        <Card name="@atanikun" link="https://waitlist.mitosis.org/profile/6QQ31I " image="/atanikun.png" xProfile="https://x.com/atanikun" refCode="https://waitlist.mitosis.org/my-page?code=6QQ31I"/>
       </div>
 
       <div className="flex flex-col gap-2 items-center justify-center">
         <img src="/mitosis.png" alt="" className="h-[30px]" />
         <p className="italic text-center text-xs">
-          Disclaimer: this halloween nft generator is not official and was not
+          Disclaimer: this tool is not official and was not
           developed by the Mitosis team, <br/>Made by @MurinXDA x @Atanikun
         </p>
       </div>
