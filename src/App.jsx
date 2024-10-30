@@ -5,7 +5,9 @@ import Card from "./components/Card";
 import FloatingCharacter from "./components/FloatingCharacter";
 import HalloweenEffect from "./components/HalloweenEffect";
 import { useEffect, useState} from "react";
-import {Cube} from 'react-preloaders';
+import { Skeleton } from "antd";
+
+// import {Cube} from 'react-preloaders';
 import axios from "axios";
 
 export default function App() {
@@ -79,7 +81,7 @@ export default function App() {
     
   return (
     <>
-    {loading ?<Cube/>: <div className="bg-[#573BFF] w-full overflow-hidden  relative flex flex-col min-h-screen   gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
+    {loading ?<Skeleton/>: <div className="bg-[#573BFF] w-full overflow-x-hidden  relative flex flex-col    gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
       <div>
         <h1 className="text-3xl md:text-5xl uppercase font-bold font-creepster tracking-wider ">
           Morsedn404
