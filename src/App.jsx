@@ -81,7 +81,7 @@ export default function App() {
     
   return (
     <>
-    {loading ?<div className="flex items-center justify-center w-screen h-screen"><RiseLoader /></div> : <div className="bg-[#573BFF] w-full overflow-x-hidden  relative flex flex-col    gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
+    {loading ?<div className="flex items-center justify-center w-screen h-screen"><RiseLoader /></div> : <div className="bg-[#573BFF] w-full overflow-x-hidden  relative flex flex-col min-h-screen   gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
       <div>
         <h1 className="text-3xl md:text-5xl uppercase font-bold font-creepster tracking-wider ">
           Morsedn404
