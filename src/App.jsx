@@ -75,12 +75,13 @@ export default function App() {
         setImage('/default.gif');
       }
     }, [debouncedValue]);
+
     
   return (
     <>
     {loading ?<Cube/>: <div className="bg-[#573BFF] w-full overflow-hidden  relative flex flex-col min-h-screen   gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
       <div>
-        <h1 className="text-3xl md:text-5xl uppercase font-bold font-creepster ">
+        <h1 className="text-3xl md:text-5xl uppercase font-bold font-creepster tracking-wider ">
           Morsedn404
         </h1>
       </div>
