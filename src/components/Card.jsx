@@ -3,7 +3,7 @@ import { FaHeart } from "react-icons/fa6";
 
 const Card = ({ name, link, image, xProfile, refCode }) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-1 p-5 shadow-lg border-[1px] border-[#A680FF] rounded-2xl w-full md:w-[400px]  ">
+    <div className="flex flex-col justify-center items-center gap-1 p-5 shadow-lg  border-[1px] border-[#A680FF] rounded-2xl w-full md:w-[400px]  ">
       <img src={image} alt="" className="rounded-full w-[100px] h-[100px] " />
       <p className="text-sm text-[#F8F8FF] font-bold">{name}</p>
       <div className="flex items-center justify-center gap-2 ">
