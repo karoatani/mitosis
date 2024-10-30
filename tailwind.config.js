@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        montserrat : ["montserrat"]
+        montserrat : ["montserrat"],
+        creepster : ["Creepster"]
       },
       keyframes: {
         glow: {

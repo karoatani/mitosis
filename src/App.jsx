@@ -3,12 +3,12 @@ import Canvas from "./components/Canvas";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import FloatingCharacter from "./components/FloatingCharacter";
-
+import HalloweenEffect from "./components/HalloweenEffect";
 export default function App() {
   return (
-    <div className="bg-[#573BFF] w-full  relative flex flex-col min-h-screen   gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
+    <div className="bg-[#573BFF] w-full overflow-hidden  relative flex flex-col min-h-screen   gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
       <div>
-        <h1 className="text-2xl md:text-2xl uppercase font-bold ">
+        <h1 className="text-3xl md:text-5xl uppercase font-bold font-creepster ">
           Morsedn404
         </h1>
       </div>
@@ -24,7 +24,8 @@ export default function App() {
         <div>
           <img src="/pumpkin-halloween.png " alt="" className="hidden" />
         </div> */}
-
+      <HalloweenEffect/>
+      
       <div className="flex flex-col gap-8 mt-5 items-center justify-center">
         <Canvas />
         <Search />
