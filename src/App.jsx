@@ -4,9 +4,81 @@ import Search from "./components/Search";
 import Card from "./components/Card";
 import FloatingCharacter from "./components/FloatingCharacter";
 import HalloweenEffect from "./components/HalloweenEffect";
+import { useEffect, useState} from "react";
+import {Cube} from 'react-preloaders';
+import axios from "axios";
+
 export default function App() {
+  const [loading, setLoading] = useState(true);
+  const [imageloading, setimageLoading] = useState(false);
+  
+  const [image, setImage] = useState("/default.gif");
+  
+
+    useEffect(() => {
+        // Simulate content loading with a timeout
+        const timer = setTimeout(() => {
+            setLoading(false); // Set loading to false after 2 seconds
+        }, 2000);
+
+        return () => clearTimeout(timer); // Cleanup the timer
+    }, []);
+  
+
+
+
+    function fetchNft(id) {
+      const apiUrl = `https://res.cloudinary.com/dzi0dkvda/image/upload/halloween/${id}.jpg`;
+      // WARNING : REMOVE THIS KEY BEFORE PUSHING TO GITHUB
+        // setImage(apiUrl);
+      setimageLoading(true)
+      axios.get(apiUrl).then((r)=> {
+
+        const timer = setTimeout(() => {
+          setimageLoading(false);
+          setImage(apiUrl);
+      }, 1000);
+      // clearTimeout(timer)
+      }).catch((err) => {
+        const timer = setTimeout(() => {
+          
+        setimageLoading(false)
+        setImage('/default.gif');
+      }, 1000);
+      })
+
+    }
+  
+    const [inputValue, setInputValue] = useState('');
+    const [debouncedValue, setDebouncedValue] = useState('');
+    
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setDebouncedValue(inputValue); // Only updates after user stops typing
+        // console.log(inputValue);
+      }, 500); // 500ms delay
+      return () => clearTimeout(timer); // Cleanup timeout if user types again
+    }, [inputValue]);
+  
+    
+    
+    useEffect(() => {
+      if (debouncedValue){
+
+        fetchNft(parseInt(debouncedValue));
+        console.log(debouncedValue);
+      }
+      // console.log(debouncedValue)
+  
+      else {
+        
+        setImage('/default.gif');
+      }
+    }, [debouncedValue]);
+    
   return (
-    <div className="bg-[#573BFF] w-full overflow-hidden  relative flex flex-col min-h-screen   gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
+    <>
+    {loading ?<Cube/>: <div className="bg-[#573BFF] w-full overflow-hidden  relative flex flex-col min-h-screen   gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
       <div>
         <h1 className="text-3xl md:text-5xl uppercase font-bold font-creepster ">
           Morsedn404
@@ -20,15 +92,12 @@ export default function App() {
         />
       </div>
 
-      {/* <div className="flex justify-evenly items-center mt-5">
-        <div>
-          <img src="/pumpkin-halloween.png " alt="" className="hidden" />
-        </div> */}
+    
       <HalloweenEffect/>
       
       <div className="flex flex-col gap-8 mt-5 items-center justify-center">
-        <Canvas />
-        <Search />
+        <Canvas image={image} imageloading={imageloading}/>
+        <Search setInputValue={setInputValue}/>
 
         {/* </div> */}
       </div>
@@ -66,6 +135,9 @@ export default function App() {
       <div className="hidden md:flex absolute bottom-0 right-5 ">
         <FloatingCharacter />
       </div>
-    </div>
+    </div>}
+    </>
+    
   );
+  
 }
