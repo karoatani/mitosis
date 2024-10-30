@@ -6,7 +6,7 @@ import FloatingCharacter from "./components/FloatingCharacter";
 
 export default function App() {
   return (
-    <div className="bg-[#573BFF] w-full  relative flex flex-col min-h-screen  gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
+    <div className="bg-[#573BFF] w-full  relative flex flex-col   gap-10 text-white  bg-no-repeat bg-cover p-4 font-montserrat">
       <div>
         <h1 className="text-2xl md:text-2xl uppercase font-bold ">
           Morsedn404
@@ -25,32 +25,45 @@ export default function App() {
           <img src="/pumpkin-halloween.png " alt="" className="hidden" />
         </div> */}
 
-        <div className="flex flex-col gap-8 mt-5 items-center justify-center">
-          <Canvas />
-          <Search />
-      
+      <div className="flex flex-col gap-8 mt-5 items-center justify-center">
+        <Canvas />
+        <Search />
+
         {/* </div> */}
       </div>
       <div className="flex flex-col gap-4 items-center justify-center">
-        <h2 className=" text-2xl text-bold text-center">
-          Contributors
-        </h2>
-        <Card name="@MurinXDA" link="https://waitlist.mitosis.org/profile/G29Q42" image="/murin.png" xProfile="https://x.com/MurinXDA" refCode="https://waitlist.mitosis.org/my-page?code=G29Q42"/>
-        <Card name="@atanikun" link="https://waitlist.mitosis.org/profile/6QQ31I " image="/atanikun.png" xProfile="https://x.com/atanikun" refCode="https://waitlist.mitosis.org/my-page?code=6QQ31I"/>
+        <h2 className=" text-2xl text-bold text-center">Contributors</h2>
+        <Card
+          name="@MurinXDA"
+          link="https://waitlist.mitosis.org/profile/G29Q42"
+          image="/murin.png"
+          xProfile="https://x.com/MurinXDA"
+          refCode="https://waitlist.mitosis.org/my-page?code=G29Q42"
+        />
+        <Card
+          name="@atanikun"
+          link="https://waitlist.mitosis.org/profile/6QQ31I "
+          image="/atanikun.png"
+          xProfile="https://x.com/atanikun"
+          refCode="https://waitlist.mitosis.org/my-page?code=6QQ31I"
+        />
+        
       </div>
-
-      <div className="flex flex-col gap-2 items-center justify-center">
-        <img src="/mitosis.png" alt="" className="h-[30px]" />
-        <p className="italic text-center text-xs">
-          Disclaimer: this tool is not official and was not
-          developed by the Mitosis team, <br/>Made by @MurinXDA x @Atanikun
-        </p>
-      </div>
-      <footer>
-        <p className="text-center">&copy;2024</p>
-      </footer>
+      <div className="relative bottom-0 flex  flex-col  gap-5 items-center justify-center">
+          <div className="flex flex-col gap-2 items-center justify-center ">
+            <img src="/mitosis.png" alt="" className="h-[30px]" />
+            <p className="italic text-center text-xs">
+              Disclaimer: this tool is not official and was not developed by the
+              Mitosis team, <br />
+              Made by @MurinXDA x @Atanikun
+            </p>
+          </div>
+          <footer>
+            <p className="text-center">&copy;2024</p>
+          </footer>
+        </div>
       <div className="hidden md:flex absolute bottom-0 right-5 ">
-      <FloatingCharacter/>
+        <FloatingCharacter />
       </div>
     </div>
   );
