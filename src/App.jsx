@@ -31,7 +31,7 @@ export default function App() {
 
         {/* </div> */}
       </div>
-      <div className="flex flex-col gap-4 items-center justify-center">
+      <div className="flex flex-col gap-4 items-center justify-center mb-[200px]">
         <h2 className=" text-2xl text-bold text-center">Contributors</h2>
         <Card
           name="@MurinXDA"
@@ -49,10 +49,10 @@ export default function App() {
         />
         
       </div>
-      <div className="relative bottom-0 flex  flex-col  gap-5 items-center justify-center">
+      <div className="absolute bottom-0  flex  flex-col  gap-5 items-center justify-center w-full">
           <div className="flex flex-col gap-2 items-center justify-center ">
             <img src="/mitosis.png" alt="" className="h-[30px]" />
-            <p className="italic text-center text-xs">
+            <p className="italic text-center text-xs p-4">
               Disclaimer: this tool is not official and was not developed by the
               Mitosis team, <br />
               Made by @MurinXDA x @Atanikun
