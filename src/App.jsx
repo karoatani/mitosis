@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import { RiseLoader } from "react-spinners";
 import Search from "./components/Search";
 import Canvas from "./components/Canvas";
 import Card from "./components/Card";
