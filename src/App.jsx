@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
 import Search from "./components/Search";
 import Canvas from "./components/Canvas";
 import Card from "./components/Card";
@@ -28,103 +26,6 @@ export default function App() {
       refCode: "https://waitlist.mitosis.org/my-page?code=6QQ31I",
     },
   ];
-
-  const particlesInit = async (engine) => {
-    await loadFull(engine);
-  };
-
-  const particlesOptions = {
-    fullScreen: {
-      enable: true,
-      zIndex: 1,
-    },
-    particles: {
-      number: {
-        value: 150,
-        density: {
-          enable: true,
-          value_area: 800,
-        },
-      },
-      color: {
-        value: ["#ff6b6b", "#ff4444", "#50FA7B", "#BD00FF"],
-      },
-      shape: {
-        type: ["circle", "triangle", "star"],
-        stroke: {
-          width: 0,
-          color: "#000000",
-        },
-      },
-      opacity: {
-        value: 0.5,
-        random: true,
-        animation: {
-          enable: true,
-          speed: 1,
-          minimumValue: 0.1,
-          sync: false,
-        },
-      },
-      size: {
-        value: 3,
-        random: true,
-        animation: {
-          enable: true,
-          speed: 2,
-          minimumValue: 0.5,
-          sync: false,
-        },
-      },
-      move: {
-        enable: true,
-        speed: 1.5,
-        direction: "none",
-        random: true,
-        straight: false,
-        outModes: {
-          default: "out",
-        },
-        attract: {
-          enable: true,
-          rotateX: 600,
-          rotateY: 1200,
-        },
-      },
-      links: {
-        enable: true,
-        distance: 150,
-        color: "#ff6b6b",
-        opacity: 0.2,
-        width: 1,
-      },
-    },
-    interactivity: {
-      detect_on: "canvas",
-      events: {
-        onHover: {
-          enable: true,
-          mode: "grab",
-        },
-        onClick: {
-          enable: true,
-          mode: "push",
-        },
-        resize: true,
-      },
-      modes: {
-        grab: {
-          distance: 140,
-          links: {
-            opacity: 0.5,
-          },
-        },
-        push: {
-          particles_nb: 4,
-        },
-      },
-    },
-  };
 
   const fetchNFTData = async (tokenId) => {
     if (!tokenId) {
@@ -163,14 +64,33 @@ export default function App() {
 
   return (
     <div className="relative bg-gradient-to-b from-halloween-black via-[#2d1b4e] to-halloween-black w-full min-h-screen overflow-hidden">
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={particlesOptions}
-      />
-
-      {/* Animated Fog Layers */}
+      {/* Enhanced Background Effects */}
       <div className="fixed inset-0">
+        {/* Animated Gradient Orbs */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full blur-3xl opacity-30"
+            style={{
+              background: i === 0 ? "#ff6b6b" : i === 1 ? "#BD00FF" : "#50FA7B",
+              width: Math.random() * 400 + 200 + "px",
+              height: Math.random() * 400 + 200 + "px",
+              left: Math.random() * 100 + "%",
+              top: Math.random() * 100 + "%",
+            }}
+            animate={{
+              x: [0, Math.random() * 100 - 50, 0],
+              y: [0, Math.random() * 100 - 50, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+
         <motion.div
           className="absolute inset-0 bg-gradient-radial from-purple-900/10 via-transparent to-transparent"
           animate={{
@@ -183,17 +103,7 @@ export default function App() {
             ease: "easeInOut",
           }}
         />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-halloween-black/50 via-transparent to-transparent"
-          animate={{
-            opacity: [0.5, 0.7, 0.5],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+        <div className="absolute inset-0 bg-halloween-black/40" />
       </div>
 
       {/* Lightning Effect */}
@@ -336,10 +246,6 @@ export default function App() {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Enhanced Ambient Effects */}
-      <div className="fixed inset-0 bg-gradient-radial from-purple-900/20 via-transparent to-transparent animate-pulse pointer-events-none" />
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(106,13,173,0.1),transparent_70%)] pointer-events-none" />
 
       {/* Floating Ghosts */}
       <motion.div
