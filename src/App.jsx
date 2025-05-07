@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Search from "./components/Search";
-import Canvas from "./components/Canvas";
-import Card from "./components/Card";
 
 export default function App() {
-  const [inputValue, setInputValue] = useState("");
-  const [image, setImage] = useState("/default.gif");
-  const [imageLoading, setImageLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [nftId, setNftId] = useState("");
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewNft, setPreviewNft] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   const contributors = [
     {
@@ -27,257 +24,321 @@ export default function App() {
     },
   ];
 
-  const fetchNFTData = async (tokenId) => {
-    if (!tokenId) {
-      setImage("/default.gif");
-      setError(null);
-      return;
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!nftId.trim()) return;
 
-    setImageLoading(true);
-    setError(null);
+    // Handle NFT search logic here
+    console.log("Searching for NFT ID:", nftId);
 
-    try {
-      const imageUrl = `https://res.cloudinary.com/dzi0dkvda/image/upload/halloween/${tokenId}.jpg`;
-      const response = await fetch(imageUrl);
+    setIsLoading(true);
+    setLoadError(false);
 
-      if (!response.ok) {
-        throw new Error("NFT not found");
-      }
+    // Set the NFT data with Cloudinary URL
+    setPreviewNft({
+      id: nftId,
+      name: `Halloween NFT #${nftId}`,
+      image: `https://res.cloudinary.com/dzi0dkvda/image/upload/halloween/${nftId}.jpg`,
+    });
 
-      setImage(imageUrl);
-    } catch (err) {
-      setError("NFT not found. Try another ID.");
-      setImage("/default.gif");
-    } finally {
-      setImageLoading(false);
-    }
+    setShowPreview(true);
   };
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      fetchNFTData(inputValue);
-    }, 500);
+  const closePreview = () => {
+    setShowPreview(false);
+    setIsLoading(false);
+    setLoadError(false);
+  };
 
-    return () => clearTimeout(timeoutId);
-  }, [inputValue]);
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
+  const handleImageError = () => {
+    setIsLoading(false);
+    setLoadError(true);
+  };
 
   return (
-    <div className="relative bg-gradient-to-b from-halloween-black via-[#2d1b4e] to-halloween-black w-full min-h-screen overflow-hidden">
-      {/* Enhanced Background Effects */}
-      <div className="fixed inset-0">
-        {/* Animated Gradient Orbs */}
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full blur-3xl opacity-30"
-            style={{
-              background: i === 0 ? "#ff6b6b" : i === 1 ? "#BD00FF" : "#50FA7B",
-              width: Math.random() * 400 + 200 + "px",
-              height: Math.random() * 400 + 200 + "px",
-              left: Math.random() * 100 + "%",
-              top: Math.random() * 100 + "%",
-            }}
-            animate={{
-              x: [0, Math.random() * 100 - 50, 0],
-              y: [0, Math.random() * 100 - 50, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-
-        <motion.div
-          className="absolute inset-0 bg-gradient-radial from-purple-900/10 via-transparent to-transparent"
-          animate={{
-            opacity: [0.3, 0.5, 0.3],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <div className="absolute inset-0 bg-halloween-black/40" />
-      </div>
-
-      {/* Lightning Effect */}
-      <motion.div
-        className="fixed inset-0 bg-white/10 pointer-events-none"
-        animate={{
-          opacity: [0, 0.5, 0],
-        }}
-        transition={{
-          duration: 0.2,
-          repeat: Infinity,
-          repeatDelay: Math.random() * 10 + 5,
-        }}
+    <div className="min-h-screen bg-[#1a1721] text-orange-500 flex flex-col relative overflow-x-hidden">
+      {/* Background decorations */}
+      <img
+        src="/top-right-spider-web.png"
+        alt=""
+        className="absolute top-[-100px] right-[-100px] hidden md:block"
       />
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        <motion.div
-          className="flex flex-col items-center justify-center min-h-[80vh] gap-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          {/* Spooky Title with Enhanced Effects */}
-          <motion.div className="relative">
-            <motion.h1
-              className="text-5xl md:text-7xl font-creepster text-halloween-orange 
-                         text-center mb-8 tracking-wider z-10 relative"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{
-                scale: 1,
-                opacity: 1,
-                textShadow: [
-                  "0 0 7px #ff6b6b",
-                  "0 0 10px #ff6b6b",
-                  "0 0 21px #ff6b6b",
-                  "0 0 42px #ff6b6b",
-                  "0 0 82px #ff6b6b",
-                  "0 0 92px #ff6b6b",
-                  "0 0 102px #ff6b6b",
-                  "0 0 151px #ff6b6b",
-                ],
-              }}
-              transition={{
-                duration: 0.8,
-                ease: [0.6, -0.05, 0.01, 0.99],
-                textShadow: {
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                },
-              }}
-            >
-              Halloween NFT Viewer
-            </motion.h1>
-            <motion.div
-              className="absolute -inset-4 bg-gradient-to-r from-halloween-orange/30 via-purple-600/30 to-halloween-orange/30 rounded-lg blur-xl"
-              animate={{
-                opacity: [0.3, 0.6, 0.3],
-                scale: [1, 1.02, 1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-              }}
-            />
-          </motion.div>
+      {/* Header */}
+      <header className="pt-2 pb-1 relative z-10">
+        <h1 className="text-2xl md:text-3xl font-bold font-creepster text-center">
+          NFT Viewer
+        </h1>
+      </header>
 
-          {/* Search Component with Spooky Shadow */}
-          <div className="relative">
-            <Search setInputValue={setInputValue} />
-            <motion.div
-              className="absolute -inset-2 bg-gradient-to-r from-halloween-orange/20 via-purple-600/20 to-halloween-orange/20 rounded-lg blur-lg"
-              animate={{
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-              }}
-            />
+      {/* Main content */}
+      <main className="flex-1 flex flex-col items-center justify-center px-3 py-1 relative z-10">
+        <img
+          src="/halloween-pumpkin.png"
+          alt=""
+          className="absolute left-[400px] top-[30px] w-[80px] hidden md:block"
+        />
+        <div className="flex flex-col md:flex-row gap-6 md:gap-6 items-center justify-center w-full max-w-4xl">
+          {/* Left content */}
+          <div className="w-full md:w-1/2 z-10">
+            <div className="mb-3">
+              <h2 className="text-4xl md:text-4xl lg:text-5xl font-bold font-creepster leading-tight text-center md:text-left">
+                Browse
+                <br />
+                Halloween
+                <br />
+                NFTs
+              </h2>
+
+              <p className="text-base md:text-lg font-montserrat mt-2 text-center md:text-left">
+                Explore the spookiest NFTs
+                <br />
+                on the blockchain
+              </p>
+            </div>
+
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-2 max-w-md mx-auto md:mx-0"
+            >
+              <input
+                type="text"
+                placeholder="NFT ID"
+                value={nftId}
+                onChange={(e) => setNftId(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg bg-transparent border-2 border-orange-500 text-orange-500 placeholder-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+
+              <button
+                type="submit"
+                className="w-full md:w-auto px-5 py-2 bg-orange-500 text-[#1a1721] font-bold rounded-lg text-base hover:scale-105 active:scale-95 transition-transform"
+              >
+                Enter
+              </button>
+            </form>
           </div>
 
-          {/* Error Message with Spooky Animation */}
-          <AnimatePresence mode="wait">
-            {error && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="text-red-500 text-lg font-medium text-center drop-shadow-[0_0_8px_rgba(255,0,0,0.5)]"
-              >
-                {error}
-              </motion.p>
-            )}
-          </AnimatePresence>
-
-          {/* NFT Display Area with Haunted Frame Effect */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            <motion.div
-              className="absolute -inset-4 bg-gradient-to-r from-halloween-orange/30 via-purple-600/30 to-halloween-orange/30 rounded-xl blur-md"
-              animate={{
-                opacity: [0.3, 0.6, 0.3],
-                scale: [1, 1.02, 1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-              }}
+          {/* Right content - Halloween character */}
+          <div className="w-full md:w-1/2 flex justify-center mt-4 md:mt-0">
+            <img
+              src="/morse-character.png"
+              alt="Halloween character with witch hat"
+              className="max-h-[25vh] md:max-h-[50vh] w-auto object-contain hidden md:block"
             />
-            <Canvas image={image} imageLoading={imageLoading} />
-          </motion.div>
+          </div>
+          <div className="hidden md:flex flex-col">
+            <img
+              src="/halloween-pumpkin.png"
+              alt=""
+              className="relative left-[150px] z-10"
+            />
+            <img
+              src="/halloween-pumpkin.png"
+              alt=""
+              className="z-10 left-[100px]"
+            />
+          </div>
+        </div>
+      </main>
 
-          {/* Contributors Section with Spooky Entrance */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-16 w-full relative"
-          >
-            <h2 className="text-3xl font-creepster text-halloween-orange text-center mb-8 animate-glow drop-shadow-[0_0_8px_rgba(255,107,107,0.7)]">
-              Contributors
-            </h2>
-            <div className="flex flex-wrap justify-center gap-6">
-              {contributors.map((contributor, index) => (
-                <motion.div
-                  key={contributor.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 * index }}
+      {/* Contributors section */}
+      <div className="w-full py-4 px-3 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-lg md:text-xl font-creepster text-center mb-4">
+            Contributors
+          </h3>
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-6">
+            {contributors.map((contributor) => (
+              <div
+                key={contributor.name}
+                className="group relative flex flex-col items-center mb-6 sm:mb-0"
+              >
+                <a
+                  href={contributor.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center transition-transform hover:scale-105 mb-2"
                 >
-                  <Card {...contributor} />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
+                  <div className="w-16 h-16 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-orange-500 mb-2 bg-[#2a2731]">
+                    <img
+                      src={contributor.image}
+                      alt={contributor.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <span className="text-sm font-montserrat">
+                    {contributor.name}
+                  </span>
+                </a>
+                <div className="flex flex-col sm:hidden items-center">
+                  <a
+                    href={contributor.xProfile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs hover:text-orange-300 mb-1.5"
+                  >
+                    Twitter Profile
+                  </a>
+                  <a
+                    href={contributor.refCode}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs hover:text-orange-300"
+                  >
+                    Referral Link
+                  </a>
+                </div>
+                <div className="hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 bg-[#2a2731] p-1.5 rounded-lg shadow-lg z-50 w-32 md:w-36">
+                  <a
+                    href={contributor.xProfile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-xs sm:text-sm mb-1 hover:text-orange-300 text-center"
+                  >
+                    Twitter Profile
+                  </a>
+                  <a
+                    href={contributor.refCode}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-xs sm:text-sm hover:text-orange-300 text-center"
+                  >
+                    Referral Link
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Floating Ghosts */}
-      <motion.div
-        className="fixed top-0 right-0 w-20 h-20 text-6xl"
-        animate={{
-          y: [0, -50, 0],
-          x: [0, 30, 0],
-          rotate: [0, 10, -10, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        👻
-      </motion.div>
-      <motion.div
-        className="fixed bottom-0 left-0 w-20 h-20 text-6xl"
-        animate={{
-          y: [0, 50, 0],
-          x: [0, -30, 0],
-          rotate: [0, -10, 10, 0],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        🎃
-      </motion.div>
+      {/* Stylish footer */}
+      <footer className="w-full mt-auto relative z-10">
+        <div className="bg-[#2a2731] border-t-2 border-orange-500/30 px-3 py-1.5">
+          <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-between">
+            <div className="flex items-center">
+              <span className="text-xs font-montserrat">
+                Halloween NFT Viewer
+              </span>
+            </div>
+            <div className="flex items-center space-x-3">
+              <a
+                href="#"
+                className="text-xs hover:text-orange-300 transition-colors"
+              >
+                Terms
+              </a>
+              <a
+                href="#"
+                className="text-xs hover:text-orange-300 transition-colors"
+              >
+                Privacy
+              </a>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs hover:text-orange-300 transition-colors"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* NFT Preview Modal */}
+      {showPreview && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-[#2a2731] border-2 border-orange-500 rounded-lg max-w-md w-full">
+            <div className="p-4 sm:p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl sm:text-2xl font-creepster">
+                  NFT Preview
+                </h3>
+                <button
+                  onClick={closePreview}
+                  className="text-orange-500 hover:text-orange-300"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {previewNft && (
+                <div>
+                  <div className="bg-[#1a1721] p-2 rounded-lg border border-orange-500/30 min-h-[200px] flex items-center justify-center">
+                    {isLoading && (
+                      <div className="flex flex-col items-center">
+                        <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                        <p className="mt-2 text-sm">Loading NFT...</p>
+                      </div>
+                    )}
+
+                    {loadError && (
+                      <div className="text-center p-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-12 w-12 mx-auto text-orange-500"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                          />
+                        </svg>
+                        <p className="mt-2">Could not load NFT #{nftId}</p>
+                        <p className="text-sm mt-1">
+                          Please check the ID and try again
+                        </p>
+                      </div>
+                    )}
+
+                    <img
+                      src={previewNft.image}
+                      alt={`Halloween NFT #${nftId}`}
+                      className={`w-full h-auto object-contain max-h-[300px] mx-auto ${
+                        isLoading || loadError ? "hidden" : "block"
+                      }`}
+                      onLoad={handleImageLoad}
+                      onError={handleImageError}
+                    />
+                  </div>
+
+                  <div className="pt-4">
+                    <button
+                      onClick={closePreview}
+                      className="w-full px-5 py-2 bg-orange-500 text-[#1a1721] font-bold rounded-lg text-base hover:scale-105 active:scale-95 transition-transform"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
