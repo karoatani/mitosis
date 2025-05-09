@@ -60,18 +60,23 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1721] text-orange-500 flex flex-col relative overflow-x-hidden">
+    <div className="min-h-screen  bg-[#1a1721] text-orange-500 flex flex-col relative overflow-hidden">
       {/* Background decorations */}
       <img
         src="/top-right-spider-web.png"
         alt=""
         className="absolute top-[-100px] right-[-100px] hidden md:block"
       />
+      <img
+        src="/bottom-left-spider-web.png"
+        alt=""
+        className="absolute bottom-[-100px] left-[-100px] hidden md:block"
+      />
 
       {/* Header */}
       <header className="pt-2 pb-1 relative z-10">
         <h1 className="text-2xl md:text-3xl font-bold font-creepster text-center">
-          NFT Viewer
+          Morse Halloween Generator
         </h1>
       </header>
 
@@ -87,11 +92,11 @@ export default function App() {
           <div className="w-full md:w-1/2 z-10">
             <div className="mb-3">
               <h2 className="text-4xl md:text-4xl lg:text-5xl font-bold font-creepster leading-tight text-center md:text-left">
-                Browse
-                <br />
-                Halloween
+                Input
                 <br />
                 NFTs
+                <br />
+                Id's Below
               </h2>
 
               <p className="text-base md:text-lg font-montserrat mt-2 text-center md:text-left">
@@ -216,40 +221,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* Stylish footer */}
-      <footer className="w-full mt-auto relative z-10">
-        <div className="bg-[#2a2731] border-t-2 border-orange-500/30 px-3 py-1.5">
-          <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-between">
-            <div className="flex items-center">
-              <span className="text-xs font-montserrat">
-                Halloween NFT Viewer
-              </span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <a
-                href="#"
-                className="text-xs hover:text-orange-300 transition-colors"
-              >
-                Terms
-              </a>
-              <a
-                href="#"
-                className="text-xs hover:text-orange-300 transition-colors"
-              >
-                Privacy
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs hover:text-orange-300 transition-colors"
-              >
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {/* NFT Preview Modal */}
       {showPreview && (
